@@ -442,7 +442,16 @@ $("button[id^='t2makepayment']").click(function(){
                    }
                     $('#message_'+idfactura).html("");
                     */
-                   document.location.reload();
+                   var valsplit=result;
+                   var v=valsplit.split("|");
+                    if(v[0]==" return"){
+                       $('#Message').append("<h2>Deposito Parcial Aplicado<h2>");
+                       $('#Message').css("color","green");
+                       $('#MessageBoard').dialog('open');
+                    }
+                    setTimeout(function(){
+                        document.location.reload();
+                    },3000);
                    
                 }
                 );

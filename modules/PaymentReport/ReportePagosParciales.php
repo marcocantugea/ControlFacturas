@@ -164,3 +164,12 @@ $(function() {
  });
 </script>
 <?php include '../../view/footerinclude.php';?>
+
+<?php
+
+unset($ListPagos);
+unset($listofcolumns);
+unset($_ADOPagoFacturas);
+unset($sqlquery);
+
+?>

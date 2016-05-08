@@ -44,4 +44,12 @@ if(isset($_SESSION['UserObj'])){
         //echo "/modules/InvoiceManager/invoices/".$_FILES['archivo']['name'];
     }
 }
+
+unset($debug);
+unset($kb);
+unset($l_kb);
+unset($carpeta_dest);
+unset($filefullname);
+
+
 echo '<script type="text/javascript" > document.location.href="AddInvoice.php"</script>';

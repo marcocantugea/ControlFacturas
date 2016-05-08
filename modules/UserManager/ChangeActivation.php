@@ -48,6 +48,12 @@ if(!empty($_GET)){
     }
 }
 
+unset($token);
+unset($type);
+unset($user);
+unset($_ADOUser);
+
+
 if(!$debug){
     header("Location: $redirectpage");
     die();

@@ -234,3 +234,13 @@ $("button[id^='PayInvoice_']").click(function(){
 
 </script>
 <?php include '../../view/footerinclude.php';?>
+<?php 
+    unset($allowtoview);
+    unset($token);
+    unset($action);
+    unset($factura);
+    unset($_ADOFacturas);
+    unset($pathfile);
+    unset($estado);
+    
+?>

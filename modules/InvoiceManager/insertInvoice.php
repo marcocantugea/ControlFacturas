@@ -55,3 +55,8 @@ if(!empty($_POST)){
     }
 }
 
+unset($debug);
+unset($token);
+unset($newfactura);
+unset($_ADOFacturas);
+

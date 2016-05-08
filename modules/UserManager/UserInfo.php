@@ -49,3 +49,9 @@ if(!empty($_GET)){
         
     }
 }
+
+unset($token);
+unset($iduser);
+unset($type);
+unset($user);
+unset($_ADOUser);

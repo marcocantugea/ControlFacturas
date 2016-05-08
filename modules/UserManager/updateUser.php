@@ -47,6 +47,11 @@ if(!empty($_POST)){
     }
 }
 
+
+unset($token);
+unset($user);
+unset($_ADOUser);
+
 if(!$debug){
     header("Location: $redirectpage");
     die();

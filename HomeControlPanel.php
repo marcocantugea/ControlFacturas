@@ -496,3 +496,15 @@ $('#changeview').change(function(){
 
 
 </script>
+
+<?php
+
+    unset($ListFacturas);
+    unset($ListFacturasNew);
+    unset($ListAllAFacturas);
+    unset($_ADOFacturas);
+    unset($listofcolumns);
+    unset($sqlquery);
+    unset($sqlquery2);
+
+?>

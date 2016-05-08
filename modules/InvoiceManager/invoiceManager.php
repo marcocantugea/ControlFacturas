@@ -203,3 +203,7 @@ $("button[id^='viewDetail']").click(function(){
 
 </script>
 <?php include '../../view/footerinclude.php';?>
+<?php
+        unset($ListFacturas);
+        unset($_ADOFacturas);
+?>

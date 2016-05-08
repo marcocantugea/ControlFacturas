@@ -41,6 +41,11 @@ if(!empty($_GET)){
     }
 }
 
+
+unset($token);
+unset($User);
+unset($_ADOUser);
+
 if(!$debug){
     header("Location: UserManager.php");
     die();

@@ -48,3 +48,8 @@ if(!empty($_POST)){
         }
     }
 }
+
+unset($debug);
+unset($token);
+unset($pagofactura);
+unset($_ADOPagoFacturas);

@@ -23,7 +23,9 @@ include ("topInclude.php");
 if(isset($_SESSION['UserObj'])){
     unset($_SESSION['UserObj']);
     $_SESSION['Show_Loggin']=true;
-    
+    unset($_SESSION['failedattemps']);
+    unset($_SESSION['captcha']);
+    unset($_SESSION['InvoiceTmp']);
    
 }
 $indexpath = $config->domain."/".$config->pathServer."/index.php";

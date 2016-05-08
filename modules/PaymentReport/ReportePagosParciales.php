@@ -79,6 +79,7 @@ if($view=="form"){
     <tr>
         <th>Fecha de Pago</th>
         <th>Factura</th>
+        <th>Fecha de Factura</th>
         <th>Orden</th>
         <th>Monto de pago</th>
     </tr>
@@ -114,14 +115,15 @@ if($view=="form"){
         if($displaysubtotalday){
     ?>
     <tr>
-        <th colspan="2" style="text-align: right; height: 30px;"></th>
-        <th></th>
+        <th colspan="3" style="text-align: right; height: 30px;"></th>
+        <th>Deposito del dia:</th>
         <th  style="text-align: center"> $<?php echo number_format($subtotaldiadisp,2,'.',',');?></th>
     </tr>
         <?php }?>
     <tr>
         <td><?php echo $item->fechadepago;?></td>
         <td><?php echo $item->FacturaObj->numerofactura;?></td>
+        <td><?php echo $item->FacturaObj->fecha;?></td>
         <td><?php echo $item->FacturaObj->numeroorden;?></td>
         <td>$<?php echo number_format($item->pagoparcial,2,'.',',');?></td>
     </tr>
@@ -130,8 +132,8 @@ if($view=="form"){
         if($totaldepagos>0){
     ?>
     <tr>
-        <th colspan="2" style="text-align: right"></th>
-        <th>Total de pagos:</th>
+        <th colspan="3" style="text-align: right"></th>
+        <th>Total de Depositos:</th>
         <th  style="text-align: center"> $<?php echo number_format($totaldepagos,2,'.',',');?></th>
     </tr>
     <?php }}?>

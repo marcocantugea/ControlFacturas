@@ -167,4 +167,51 @@ class ADOFacturas {
             $this->mysqlconector->CloseDataBase();
         }
     }
+    
+    public function GetFacturasToConciliate($ListFacturaObj){
+        if(!empty($ListFacturaObj)){
+            $this->mysqlconector->OpenConnection();
+            $sql="select t_facturas.idfactura,date_format(fecha,'%d - %b - %Y') as fecha,numerofactura,monto from t_facturas left join t_conciliacion_referencias on t_conciliacion_referencias.idfactura=t_facturas.idfactura where idestado=1 and idconcilref is null;";
+            if($this->debug){
+                echo '<br/>'. $sql;
+            }
+            $result=  $this->mysqlconector->conn->query($sql) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+             if($result->num_rows>0){
+                 while($row = $result->fetch_assoc()) {
+                     $factura= new FacturaObj();
+                     $factura->idfactura=$row['idfactura'];
+                     $factura->fecha= $row['fecha'];
+                     $factura->monto=$row['monto'];
+                     $factura->numerofactura=$row['numerofactura'];
+                     $ListFacturaObj->addItem($factura);
+                 }
+             }
+            
+            $this->mysqlconector->CloseDataBase();
+        }
+    }
+    
+    public function GetFacturasConciliadas($ConciliacionObj,$ListFacturaObj){
+        if(!empty($ConciliacionObj) && !empty($ListFacturaObj)){
+            $this->mysqlconector->OpenConnection();
+            $idconciliacion=  mysqli_real_escape_string($this->mysqlconector->conn,$ConciliacionObj->idconciliacion);
+            $sql="select t_facturas.idfactura,date_format(fecha,'%d-%b-%Y') as fecha,numerofactura,monto from t_facturas inner join t_conciliacion_referencias on t_conciliacion_referencias.idfactura=t_facturas.idfactura where t_conciliacion_referencias.idconciliacion=$idconciliacion;";
+            if($this->debug){
+                echo '<br/>'. $sql;
+            }
+            $result=  $this->mysqlconector->conn->query($sql) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+             if($result->num_rows>0){
+                 while($row = $result->fetch_assoc()) {
+                     $factura= new FacturaObj();
+                     $factura->idfactura=$row['idfactura'];
+                     $factura->fecha= $row['fecha'];
+                     $factura->monto=$row['monto'];
+                     $factura->numerofactura=$row['numerofactura'];
+                     $ListFacturaObj->addItem($factura);
+                 }
+             }
+            
+            $this->mysqlconector->CloseDataBase();
+        }
+    }
 }

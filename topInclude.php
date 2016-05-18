@@ -49,12 +49,19 @@ include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOUsers.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOFacturas.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOPagosFactura.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOEstadoFacturas.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOTipoTransaccion.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOCuentasConsil.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOConciliacion.php");
 
 //Entidades del sistema
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/UserObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/FacturaObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/PagoFacturaObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/EstadoFacturaObj.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/TipoTransaccion.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/CuentaConcilObj.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/ConciliacionObj.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/RelConcilFacturaObj.php");
 
 // External
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/external/simplecapcha/simple-php-captcha.php");

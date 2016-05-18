@@ -54,4 +54,11 @@ class MysqlConnector {
         }
     }
     
+    public function setSettings($ConfigObj){
+        $this->username=$ConfigObj->username;
+        $this->password=$ConfigObj->password;
+        $this->database=$ConfigObj->database;
+        $this->servername=$ConfigObj->servername;
+    }
+    
 }

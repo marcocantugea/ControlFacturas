@@ -37,6 +37,13 @@ $indexpage=$config->domain."/".$config->pathServer.""
          </li>
       </ul>
    </li>
+   <li class='active has-sub'><a href="#"><span>Administracion de Bancos</span></a>
+       <ul>
+           <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/ConciliacionCuentas/Cuentas/CuentasManager.php'><span>Agregar Cuenta</span></a></li>
+           <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/ConciliacionCuentas/ConciliacionMod/ConciliacionManager.php'><span>Conciliar Cuenta Bancaria</span></a></li>
+           <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/ConciliacionCuentas/catTransacciones/CatalogoTransManager.php'><span>Catalogo de Tipo de Transacciones</span></a></li>
+       </ul>
+   </li>
    <li><a href='<?php echo $indexpage;?>/modules/UserManager/UserManager.php'><span>Administracion de Usuarios</span></a></li>
    <li class='active has-sub'><a href='#'><span>Reportes</span></a>
        <ul>

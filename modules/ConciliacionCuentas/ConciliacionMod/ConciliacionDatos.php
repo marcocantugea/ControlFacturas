@@ -25,7 +25,7 @@ include 'topinclude.php';
  $SessionUser->GenerateToken();
  
  //Load conciliacion
-if(isset($_SESSION['FileTmp']) && isset($_SESSION['TmpConciliacion'])){
+if(isset($_SESSION['TmpConciliacion'])){
     $ListConciliacion = unserialize($_SESSION['TmpConciliacion']);
 }
 

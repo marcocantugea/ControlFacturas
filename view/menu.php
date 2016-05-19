@@ -48,6 +48,7 @@ $indexpage=$config->domain."/".$config->pathServer.""
    <li class='active has-sub'><a href='#'><span>Reportes</span></a>
        <ul>
            <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/PaymentReport/ReportePagosParciales.php'><span>Reporte de Pagos Parciales</span></a></li>
+           <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/ConciliacionCuentas/Reports/ReportByTransaccion.php'><span>Reporte de Conciliaciones Transacciones</span></a></li>
        </ul>
    </li>
    <li class='last'><a href='<?php echo $logoutpage;?>'><span>Salir</span></a></li>

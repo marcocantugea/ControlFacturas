@@ -360,4 +360,35 @@ class ADOConciliacion {
         return $id;
         
     }
+    
+    public function GetReportByTransaction($ListOfReportTransSumObj,$mes,$anio){
+        if(!empty($ListOfReportTransSumObj) && !empty($mes) and !empty($anio)){
+        $this->mysqlconector->OpenConnection();
+        $smes=  mysqli_real_escape_string($this->mysqlconector->conn,$mes);
+        $sanio=mysqli_real_escape_string($this->mysqlconector->conn,$anio);
+        $sql="select t_catalogo_tipo_transaccion.descripcion, sum(cargo) as cargos,sum(abono) as abonos"
+                . " from t_conciliacion "
+                . "left join t_catalogo_tipo_transaccion "
+                . "on t_conciliacion.idctrans = t_catalogo_tipo_transaccion.idctrans "
+                . "where mes=$smes and anio=$sanio "
+                . "group by t_catalogo_tipo_transaccion.descripcion,mes,anio;";
+        
+        if($this->debug){
+                 echo '<br/>'. $sql;
+             }
+        $result=  $this->mysqlconector->conn->query($sql) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+        if($result->num_rows>0){
+            while($row = $result->fetch_assoc()) {
+                $Reportobj = new ReportTransSumObj();
+                $Reportobj->descripcion=$row['descripcion'];
+                $Reportobj->cargos=$row['cargos'];
+                $Reportobj->abonos=$row['abonos'];
+                $ListOfReportTransSumObj->addItem($Reportobj);
+            }
+        }
+        $this->mysqlconector->CloseDataBase();
+        unset($result);
+        unset($Reportobj);
+     }   
+    }
 }

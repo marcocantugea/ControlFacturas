@@ -374,5 +374,5 @@ $_ADOFactura->GetFacturasToConciliate($ListFacturas);
     unset($_ADOTipoTransaccion);
     unset($ListFacturas);
     unset($_ADOFactura);
-
+    
 ?>

@@ -43,6 +43,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 $estado =$factura->EstadoFacturaObj->estado;
                 $factura->getPagosFactura();
                 
+                //Load the customers
+                $ListofCustomers = new ArrayList();
+                $_ADOOCClass = new ADOOCClass();
+                //$_ADOOCClass->debug=true;
+                $_ADOOCClass->getAllCustomers($ListofCustomers);
+                //echo var_dump($ListofCustomers);
+                
             }else{
                 $allowtoview=false;
             }
@@ -84,12 +91,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         </tr>
         <tr>
             
-            <td colspan="2" style="padding-left: 15px;">
+            <td style="padding-left: 15px;">
                 <?php if($factura->idestado==0){ ?>
                 Pago Parcial : <input type="text" name="parcialpayment_<?php echo $factura->idfactura;?>" value=""  style="width: 55px;">
                 &nbsp;Fecha:<input id="dateparcial_<?php echo $factura->idfactura;?>" type="text" name="dateparcial_<?php echo $factura->idfactura;?>" value=""  style="width: 88px;">
                 <button id="makepayment_<?php echo $factura->idfactura;?>" style="height: 30px;" > Hacer Pago</button>
                 <?php } ?>
+            </td>
+            <td>
+                
+                Cliente: <select id="customer_selector_<?php echo $factura->idfactura;?>" style="font-size: larger;">
+                    <?php 
+                        foreach ($ListofCustomers->array as $items){
+                            $selected="";
+                            if($factura->customer_id===$items->customer_id){
+                                $selected="selected";
+                            }
+                            echo '<option value="'.$items->customer_id.'" '.$selected.'>'.$items->firstname.' '.$items->lastname.'</option>';
+                        }
+                    ?>
+                </select>
             </td>
             <td> 
                 <?php if($factura->idestado==0){ ?>
@@ -231,6 +252,30 @@ $("button[id^='PayInvoice_']").click(function(){
     
 });
 
+
+// Added 24 may 2016
+$('select[id^=customer_selector_]').change(function(){
+   var idbutton= $(this).attr("id");
+    var val=idbutton.split("_");
+    var idfactura=val[2];
+    var customer_id=$(this).val();
+    var customer_name=$('select[id^=customer_selector_] option:selected').text();
+    SetCustomer(idfactura,customer_id,customer_name);
+});
+
+function SetCustomer(param,param2,param3){
+    alert('setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3);
+    $.ajax({
+            url:'setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3,
+            type:'get',
+            dataType: "json",
+            success:function(result){
+                var obj1=result;
+                //alert(obj1);
+            }
+            
+    });
+}
 
 </script>
 <?php include '../../view/footerinclude.php';?>

@@ -57,7 +57,7 @@ class ADOFacturas {
     public function getFacturas($ListOfFacturaObj){
         if(!empty($ListOfFacturaObj)){
             $this->mysqlconector->OpenConnection();
-            $sql="select idfactura,date_format(fecha,'%d - %b - %Y') as fecha,monto,archivoruta,date_format(vencimiento,'%d - %b - %Y') as vencimiento,montoactual,idestado,numerofactura,numeroorden from t_facturas order by numerofactura desc;";
+            $sql="select idfactura,date_format(fecha,'%d - %b - %Y') as fecha,monto,archivoruta,date_format(vencimiento,'%d - %b - %Y') as vencimiento,montoactual,idestado,numerofactura,numeroorden,customer_id,customer_name from t_facturas order by numerofactura desc;";
             if($this->debug){
                 echo '<br/>'. $sql;
             }
@@ -74,6 +74,8 @@ class ADOFacturas {
                      $factura->idestado=$row['idestado'];
                      $factura->numerofactura=$row['numerofactura'];
                      $factura->numeroorden= $row['numeroorden'];
+                     $factura->customer_id=$row['customer_id'];
+                     $factura->customer_name=$row['customer_name'];
                      $ListOfFacturaObj->addItem($factura);
                  }
              }
@@ -85,7 +87,7 @@ class ADOFacturas {
         if(!empty($FacturaObj)){
             $this->mysqlconector->OpenConnection();
             $idfactura=  mysqli_real_escape_string($this->mysqlconector->conn,$FacturaObj->idfactura);
-            $sql="select idfactura,date_format(fecha,'%d - %b - %Y') as fecha,monto,archivoruta,date_format(vencimiento,'%d - %b - %Y') as vencimiento,montoactual,idestado,numerofactura,numeroorden from t_facturas where idfactura=$idfactura ;";
+            $sql="select idfactura,date_format(fecha,'%d - %b - %Y') as fecha,monto,archivoruta,date_format(vencimiento,'%d - %b - %Y') as vencimiento,montoactual,idestado,numerofactura,numeroorden,customer_id,customer_name from t_facturas where idfactura=$idfactura ;";
             if($this->debug){
                 echo '<br/>'. $sql;
             }
@@ -101,6 +103,8 @@ class ADOFacturas {
                      $FacturaObj->idestado=$row['idestado'];
                      $FacturaObj->numerofactura=$row['numerofactura'];
                      $FacturaObj->numeroorden= $row['numeroorden'];
+                     $FacturaObj->customer_id=$row['customer_id'];
+                     $FacturaObj->customer_name=$row['customer_name'];
                  }
              }
             
@@ -160,6 +164,8 @@ class ADOFacturas {
                      $factura->idestado=$row['idestado'];
                      $factura->numerofactura=$row['numerofactura'];
                      $factura->numeroorden= $row['numeroorden'];
+                     $factura->customer_id=$row['customer_id'];
+                     $factura->customer_name=$row['customer_name'];
                      $ListFacturaObj->addItem($factura);
                  }
              }
@@ -212,6 +218,31 @@ class ADOFacturas {
              }
             
             $this->mysqlconector->CloseDataBase();
+        }
+    }
+    
+    public function SetCustomer($FacturaObj){
+        if(!empty($FacturaObj)){
+            $this->mysqlconector->OpenConnection();
+            $idfactura = mysqli_real_escape_string($this->mysqlconector->conn,$FacturaObj->idfactura);
+            $customer_id= mysqli_real_escape_string($this->mysqlconector->conn,$FacturaObj->customer_id);
+            $customer_name= mysqli_real_escape_string($this->mysqlconector->conn,$FacturaObj->customer_name);
+            
+            $sql = new SqlQueryBuilder("update");
+            $sql->setTable("t_facturas");
+            $sql->addColumn("customer_id");$sql->addValue($customer_id);
+            $sql->addColumn("customer_name");$sql->addValue($customer_name);
+            $sql->setWhere("idfactura=$idfactura");
+            
+            if($this->debug){
+                echo '<br />'. $sql->buildQuery();
+            }
+            
+            $result=  $this->mysqlconector->conn->query($sql->buildQuery()) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);            
+            $this->mysqlconector->CloseDataBase();
+            
+            unset($result);
+            unset($sql);
         }
     }
 }

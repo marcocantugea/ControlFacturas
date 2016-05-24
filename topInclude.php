@@ -52,6 +52,7 @@ include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOEstadoFactura
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOTipoTransaccion.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOCuentasConsil.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOConciliacion.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/dao/ADOOCClass.php");
 
 //Entidades del sistema
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/UserObj.php");
@@ -63,6 +64,7 @@ include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/CuentaConci
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/ConciliacionObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/RelConcilFacturaObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/ReportTransSumObj.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/OCCustomerObj.php");
 
 // External
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/external/simplecapcha/simple-php-captcha.php");

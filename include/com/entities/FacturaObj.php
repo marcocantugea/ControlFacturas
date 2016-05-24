@@ -35,6 +35,8 @@ class FacturaObj {
     public $numeroorden;
     public $EstadoFacturaObj;
     public $ListPagosFactura;
+    public $customer_id;
+    public $customer_name;
     
     public function getEstado(){
         if($this->idestado>0){

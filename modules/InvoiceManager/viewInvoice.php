@@ -264,7 +264,7 @@ $('select[id^=customer_selector_]').change(function(){
 });
 
 function SetCustomer(param,param2,param3){
-    alert('setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3);
+    //alert('setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3);
     $.ajax({
             url:'setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3,
             type:'get',

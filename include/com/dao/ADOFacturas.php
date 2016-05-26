@@ -245,4 +245,45 @@ class ADOFacturas {
             unset($sql);
         }
     }
+    
+    public function getCustomerFacturas($ListofFacturas,$custid){
+        if(!empty($ListofFacturas)){
+            $this->mysqlconector->OpenConnection();
+            $idcustomer = mysqli_real_escape_string($this->mysqlconector->conn,$custid);
+            $sqlobj= new SqlQueryBuilder("select");
+            $sqlobj->setTable("t_facturas");
+            $sqlobj->addColumn("idfactura");
+            $sqlobj->addColumn("date_format(fecha,'%d - %b - %Y') as fecha");
+            $sqlobj->addColumn("monto");
+            $sqlobj->addColumn("archivoruta");
+            $sqlobj->addColumn("date_format(vencimiento,'%d - %b - %Y') as vencimiento");
+            $sqlobj->addColumn("montoactual");
+            $sqlobj->addColumn("idestado");
+            $sqlobj->addColumn("numerofactura");
+            $sqlobj->addColumn("numeroorden");
+            $sqlobj->addColumn("customer_id");
+            $sqlobj->addColumn("customer_name");
+            $sqlobj->setWhere("customer_id=$idcustomer");
+            $sqlobj->setOrderBy("numerofactura");
+            
+            if($this->debug){
+                echo '<br/>' . $sqlobj->buildQuery();
+            }
+            
+            $result=  $this->mysqlconector->conn->query($sqlobj->buildQuery()) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+            if($result->num_rows>0){
+                while($row = $result->fetch_assoc()) {
+                    $factura = new FacturaObj();
+                    $varmembers = get_object_vars($factura);
+                    foreach ($varmembers as $member=>$value){
+                        $factura->setValueToMember($member, $row[$member]);
+                    }
+                    $ListofFacturas->addItem($factura);
+                }
+            }
+            
+            $this->mysqlconector->CloseDataBase();
+            unset($result);
+        }
+    }
 }

@@ -43,6 +43,8 @@ class OCCustomerObj {
     public $approved;
     public $token;
     public $date_added;
+    //public $Listfacturas;
+    
     
     public function setValueToMember ($membername, $value){
         switch ($membername){

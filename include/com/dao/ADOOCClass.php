@@ -81,5 +81,5 @@ class ADOOCClass {
             
             $this->mysqlconector->CloseDataBase();
         }
-    }
+    }   
 }

@@ -38,6 +38,35 @@ class FacturaObj {
     public $customer_id;
     public $customer_name;
     
+    
+    public function setValueToMember ($membername, $value){
+        switch ($membername){
+            case "idfactura":
+                $this->idfactura=$value;
+            case "fecha":
+                $this->fecha=$value;
+            case "monto":
+                $this->monto=$value;
+            case "archivoruta":
+                $this->archivoruta=$value;
+            case "vencimiento":
+                $this->vencimiento=$value;
+            case "montoactual":
+                $this->montoactual=$value;
+            case "idestado":
+                $this->idestado=$value;
+            case "numerofactura":
+                $this->numerofactura=$value;
+            case "numeroorden":
+                $this->numeroorden=$value;
+            case "customer_id":
+                $this->customer_id=$value;
+            case "customer_name":
+                $this->customer_name=$value;
+                
+        }
+    }
+    
     public function getEstado(){
         if($this->idestado>0){
             $this->EstadoFacturaObj = new EstadoFacturaObj();

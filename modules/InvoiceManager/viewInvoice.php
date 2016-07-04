@@ -64,6 +64,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         echo '<script type="text/javascript">document.location.href="../../index.php"</script>';
     }
     
+    /**
+     * Modificado el 4 Julio 2016
+     * Poder modificar el monto de la factura si no ahi ningun pago regalizado
+     * Marco Cantu
+     * ***/
+    
+    $ModifyMontoFactura=false;
+    $NewMontoFactura=0;
+    if($factura->monto==$factura->montoactual){
+        $ModifyMontoFactura=true;
+    }
+    
 ?>
 
 <?php include '../../view/headinclude.php';?>
@@ -79,7 +91,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <tr>
             <td >Factura Numero:<strong > <?php echo $factura->numerofactura;?></strong></td>
             <td>Fecha Factura: <strong><?php echo $factura->fecha;?></strong></td>
+            <?php
+                /**
+                 * Modificacion 4 de Julio 2016
+                 * Validar si se agrega la opcion de modificar monto.
+                 * si la bandera es verdadera agrega la opcion para modificar el monto de la factura
+                 * en caso de que ya existan pagos solo se mostrara el monto restante.
+                 * **/
+                 if ($ModifyMontoFactura){
+            ?>
+            <td>Monto Factura:<input type="text" id="txtMontoFactura" name="MontoFactura" style=" width: 70px;" value="<?php echo $factura->monto?>" /> <button id="btnModificaMontoFactura_<?php echo $factura->idfactura?>">Modificar</button></td>
+            <?php 
+            
+                 }else{ 
+            ?>
             <td>Saldo : $ <strong><span id="saldo_<?php echo $factura->idfactura;?>"> <?php echo number_format($factura->montoactual,2,'.',',');?></span></strong></td>
+            
+            <?php  
+            
+                 }
+            ?>
             <td></td>
         </tr>
         <tr>
@@ -267,6 +298,35 @@ function SetCustomer(param,param2,param3){
     //alert('setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3);
     $.ajax({
             url:'setCustomerToInvoice.php?param='+param+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'&param3='+param3,
+            type:'get',
+            dataType: "json",
+            success:function(result){
+                var obj1=result;
+                //alert(obj1);
+            }
+            
+    });
+}
+
+/**
+* Modificacion 4 Julio 2016
+* 
+* Accion del boton de modificar factura
+* llama funcion de ajax para modificar monto.
+* 
+* **/
+$("button[id^='btnModificaMontoFactura']").click(function(){
+    var idbutton= $(this).attr("id");
+    var val=idbutton.split("_");
+    var idfactura=val[1];
+    var newmonto=$('#txtMontoFactura').val();
+    UpdateMontoFactura(idfactura,newmonto);
+});
+
+function UpdateMontoFactura(param1,param2){
+    //alert('UpdateAmountInvoice.php?param1='+param1+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'')
+    $.ajax({
+            url:'UpdateAmountInvoice.php?param1='+param1+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'',
             type:'get',
             dataType: "json",
             success:function(result){

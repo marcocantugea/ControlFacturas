@@ -127,6 +127,28 @@ class ADOFacturas {
             $this->mysqlconector->CloseDataBase();
         }
     }
+    
+    /**
+     * Modificacion 4 Julio 2016
+     * Se Agrego funcion para modificar el monto de la factura
+     * Marco Cantu
+     * **/
+    public function UpdateMontoFactura($PagoFacturaObj){
+        if(!empty($PagoFacturaObj)){
+            $this->mysqlconector->OpenConnection();
+            $idfactura=  mysqli_real_escape_string($this->mysqlconector->conn,$PagoFacturaObj->idfactura);
+            $monto=  mysqli_real_escape_string($this->mysqlconector->conn,$PagoFacturaObj->monto);
+            $sql="update t_facturas set monto=$monto where idfactura=$idfactura";
+            
+            if($this->debug){
+                echo '<br/>'. $sql;
+            }
+            
+            $result=  $this->mysqlconector->conn->query($sql) or trigger_error("Error ADOUsers::UpdateMontoFactura:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+            $this->mysqlconector->CloseDataBase();
+        }
+    }
+    
     public function UpdateEstado($FacturaObj){
         if(!empty($FacturaObj)){
             $this->mysqlconector->OpenConnection();

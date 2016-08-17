@@ -18,8 +18,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+/*
+ * 
+ * Modificacion a login identificacion de problemas con seguridad.
+ * 
+ */
 ?>
-<!--<form id="loginform" name="loginform" method="post" action="#">-->
+<form id="loginform" name="loginform" method="post" action="loggin.php">
 <div id="LoginForm" class="addnew" style="width: 350px;">
     <h3>Inicie Session</h3>
     
@@ -37,7 +42,7 @@
                     Contraseña:
                 </td>
                  <td>
-                     <input type="password" name="password" id="password" value=""/>
+                     <input type="password" name="pass" id="password" value=""/>
                 </td>
             </tr>
             <?php
@@ -72,9 +77,9 @@
 <div id="meesageboard" style="color: red;text-align: center">
     <h2 id="messagefail"></h2>
 </div>
-    
    
-<!-- </form>-->
+</form>
+<!--
 <script src="./js/jquery-1.12.1.min.js"></script>
 <script type="text/javascript">
     $().ready();
@@ -107,4 +112,5 @@
     });
 
 </script>
+-->
 <!--HTML Code goes here-->

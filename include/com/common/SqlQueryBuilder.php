@@ -195,4 +195,4 @@ class SqlQueryBuilder {
         return $sqlString; 
     } 
 } 
-?> 
+?>

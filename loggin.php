@@ -53,28 +53,34 @@ if(!empty($_POST)){
                     $_SESSION['Show_Loggin']=false;
                     $_SESSION['UserObj']= serialize($user);
                     $_SESSION['failedattemps']=0;
-                    echo '0|true';
+                    //echo '0|true';
                 }else{
                     $failsattemp=$failsattemp+1;
                     $_SESSION['failedattemps']=$failsattemp;
-                    echo $failsattemp.'|false';      
+                    //echo $failsattemp.'|false';      
                 }
              }else{
-                 echo $failsattemp.'|invalid captcha';
+                 //echo $failsattemp.'|invalid captcha';
              }
          }else{
             $_ADOUser->Loggin($user);
             if($user->iduser>0){
                 $_SESSION['Show_Loggin']=false;
                 $_SESSION['UserObj']= serialize($user);
-                echo '0|true';
+                //echo '0|true';
             }else{
                 $failsattemp=$failsattemp+1;
                 $_SESSION['failedattemps']=$failsattemp;
-                echo $failsattemp.'|false';    
+                //echo $failsattemp.'|false';    
             }
              
          }
          
     }
 }
+
+unset($_ADOUser);
+
+header("Location: index.php");
+die;
+?>

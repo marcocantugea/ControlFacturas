@@ -79,38 +79,5 @@
 </div>
    
 </form>
-<!--
-<script src="./js/jquery-1.12.1.min.js"></script>
-<script type="text/javascript">
-    $().ready();
-    $('#btnLoggin').click(function(){
-         $('#messagefail').html("");
-        var user=$('#user').val();
-        var pass=$('#password').val();
-        var captcha=$('#txtcap').val();
-       $.post("loggin.php",{user:user,pass:pass,captcha:captcha},function(data){
-           var splitval=data.split("|");
-           var attempts=splitval[0];
-           var result=splitval[1];
-           if(result==="true"){
-               document.location.href="index.php";
-           }
-           if(result==="false"){
-              $('#messagefail').html("Usuario y/o contraseña invalida");
-              if(attempts>3){
-                  setTimeout(function(){
-                      document.location.href="index.php";
-                  },700);
-              }
-           }
-           if(result=="invalid captcha"){
-              $('#messagefail').html("Texto de imagen invalido!");
-           }
-       });
-       
-       return false;
-    });
 
-</script>
--->
 <!--HTML Code goes here-->

@@ -80,7 +80,6 @@ if(!empty($_POST)){
 }
 
 unset($_ADOUser);
+echo '<script type="text/javascript" > document.location.href="'.$redirectpage.'"</script>';
 
-header("Location: index.php");
-die;
 ?>

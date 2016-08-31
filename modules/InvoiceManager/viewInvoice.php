@@ -372,7 +372,7 @@ $("input[name^='pagoparcial']").datepicker({
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
           ];
         
-        var fechatodisplay=dia+" - "+monthNames[mes]+" - "+anio
+        var fechatodisplay=dia+" - "+monthNames[mes-1]+" - "+anio
         
         $(this).val(fechatodisplay);
         UpdatePagoFactura(idpagofactura,fechatoinsert);

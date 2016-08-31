@@ -165,7 +165,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         foreach ($factura->ListPagosFactura->array as $item){
                     ?>
                     <tr>
+                         <?php
+                            /**
+                             * Modificacion 31 de Agosto 2016
+                             * Validar si se agrega la opcion de modificar monto.
+                             * si la bandera es verdadera agrega la opcion para modificar la fecha  del pago
+                             * 
+                             * **/
+                             if (!$ModifyMontoFactura){
+                        ?>
+                        <td><input id="pagoparcial_<?php echo $item->idfacturapagos?>" name="pagoparcial_<?php echo $item->idfacturapagos?>" value="<?php echo $item->fechadepago?>" style="width:125px;"> </td>
+                        <?php }else{ ?>
                         <td><?php echo $item->fechadepago?></td>
+                        <?php }?>
                         <td><?php echo number_format($item->pagoparcial,2,'.',',');?></td>
                         <td><?php echo number_format($item->montoantespago,2,'.',',');?></td>
                         <td><?php echo number_format($item->montoactual,2,'.',',');?></td>
@@ -208,6 +220,7 @@ $('#tpartialpayments td').css("text-align","center");
 
 $(function() {
         $("input[name^='dateparcial']" ).datepicker({dateFormat: "yy-mm-dd"});
+        $("input[name^='pagoparcial']" ).datepicker({dateFormat: "yy-mm-dd"});
     });
 
 $("button[id^='makepayment']").click(function(){
@@ -336,6 +349,49 @@ function UpdateMontoFactura(param1,param2){
             
     });
 }
+
+/**
+* Modificacion 31 Agosto actualizacion de fecha en pago 
+* 
+* Accion para actualizar la fecha en el pago si esta erroneo
+*
+*/
+$("input[name^='pagoparcial']").datepicker({
+    onSelect:function(selected){
+        var idbutton= $(this).attr("id");
+        var val=idbutton.split("_");
+        var idpagofactura=val[1];
+        var newvalue=selected;
+        var anio= newvalue.substring(6,10);
+        var mes= newvalue.substring(1,2);
+        var dia= newvalue.substring(3,5);
+        var fechatoinsert=anio+"-"+mes+"-"+dia
+        
+        
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          ];
+        
+        var fechatodisplay=dia+" - "+monthNames[mes]+" - "+anio
+        
+        $(this).val(fechatodisplay);
+        UpdatePagoFactura(idpagofactura,fechatoinsert);
+    }
+ });
+function UpdatePagoFactura(param1,param2){
+    //alert('updatePagoFecha.php?param1='+param1+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'');
+    $.ajax({
+            url:'updatePagoFecha.php?param1='+param1+'&token=<?php echo $SessionUser->token;?>&param2='+param2+'',
+            type:'get',
+            dataType: "json",
+            success:function(result){
+                var obj1=result;
+                alert(obj1);
+            }
+            
+    });
+}
+
 
 </script>
 <?php include '../../view/footerinclude.php';?>

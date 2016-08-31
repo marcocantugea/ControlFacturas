@@ -69,7 +69,7 @@ class ADOPagosFactura {
         if(!empty($ListaPagosFacturaObj) && !empty($FacturaObj)){
             $this->mysqlconector->OpenConnection();
             $idfactura= mysqli_real_escape_string($this->mysqlconector->conn,$FacturaObj->idfactura);
-            $sql="select idfactura,montoactual,pagoparcial,montoantespago,date_format(fechadepago,'%d - %b - %Y') as fechadepago,comentarios from t_facturaspagos where idfactura=$idfactura";
+            $sql="select idfacturapagos,idfactura,montoactual,pagoparcial,montoantespago,date_format(fechadepago,'%d - %b - %Y') as fechadepago,comentarios from t_facturaspagos where idfactura=$idfactura";
             if($this->debug){
                 echo '<br/>'. $sql;
             }
@@ -117,6 +117,37 @@ class ADOPagosFactura {
              }
             $this->mysqlconector->CloseDataBase();
         }
+    }
+    
+    
+    /*
+     * Modificacion 31 de Agosto 2016
+     * 
+     * Agregar Funcion de actualizacion de Fecha de pago
+     * 
+     */
+    
+    public function UpdateFechaPago($PagoFacturaObj){
+        if(!empty($PagoFacturaObj)){
+            $this->mysqlconector->OpenConnection();
+            $query= new SqlQueryBuilder("update");
+            $query->setTable("t_facturaspagos");
+            $query->addColumn("fechadepago");
+            $query->addValue("$PagoFacturaObj->fechadepago");
+            $query->setWhere("idfacturapagos=$PagoFacturaObj->idfacturapagos");
+            
+            if($this->debug){
+                echo '<br/>'. $query->buildQuery();
+            }
+            
+            
+            $result=  $this->mysqlconector->conn->query($query->buildQuery()) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+            
+            
+            $this->mysqlconector->CloseDataBase();
+            
+        }
+        
     }
     
 }

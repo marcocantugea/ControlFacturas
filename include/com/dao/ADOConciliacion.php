@@ -391,4 +391,39 @@ class ADOConciliacion {
         unset($Reportobj);
      }   
     }
+    
+    /***
+     * 
+     * Modificacion 13 de Sep 2016
+     * Agregar funcion para obtener datos para
+     * analisis de gastos y ingresos
+     * 
+     */
+    public function GetDataAnalisisGastosIngresos($ReportAnaliIngCostList,$year){
+         if(!empty($ReportAnaliIngCostList)){
+              $this->mysqlconector->OpenConnection();
+              $yearc=mysqli_real_escape_string($this->mysqlconector->conn,$year);
+              $sql="select t_conciliacion.idctrans,descripcion, Sum(cargo+ abono) as monto,anio from t_conciliacion inner join t_catalogo_tipo_transaccion on t_conciliacion.idctrans=t_catalogo_tipo_transaccion.idctrans where anio=$yearc group by t_conciliacion.idctrans,descripcion,anio;";
+              if($this->debug){
+                echo '<br/>'. $sql;
+              }
+              $result=  $this->mysqlconector->conn->query($sql) or trigger_error("Error ADOUsers::AddNewUser:mysqli=".mysqli_error($this->mysqlconector->conn),E_USER_ERROR);
+              if($result->num_rows>0){
+                   while($row = $result->fetch_assoc()) {
+                       $ReportAnaliIngCostObj= new ReportAnaliIngCost();
+                       $ReportAnaliIngCostObj->idctrans=$row['idctrans'];
+                       $ReportAnaliIngCostObj->description=$row['descripcion'];
+                       $ReportAnaliIngCostObj->monto=$row['monto'];
+                       //$ReportAnaliIngCostObj->mes=$row['mes'];
+                       $ReportAnaliIngCostObj->anio=$row['anio'];
+                       $ReportAnaliIngCostList->addItem($ReportAnaliIngCostObj);
+                   }
+              }
+              $this->mysqlconector->CloseDataBase();
+              unset($result);
+              unset($ReportAnaliIngCostObj);
+         }
+    }
+
+
 }

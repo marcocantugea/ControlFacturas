@@ -17,7 +17,7 @@ class Chart{
 	 * @var boolean
 	 */
 	private static $included_lib = FALSE;
-	
+	public static $roles;
 	
 	/**
 	 * 
@@ -98,8 +98,13 @@ class Chart{
 		//chart columns
 		foreach ($columns as $k=>$v)
 		{
-			$ret.="data.addColumn('".$v."', '".$k."');".PHP_EOL;
+                    if($k!="role"){
+                        $ret.="data.addColumn('".$v."', '".$k."');".PHP_EOL;
+                    }
+			
 		}
+                
+                $ret.=self::addRoles();
 		
 		//adding data to the chart
 		$ret.="data.addRows([";
@@ -119,7 +124,29 @@ class Chart{
        	foreach ($options as $k=>$v)
        	{
        		$ret.= $k.': ';
-       		$ret.= (strpos($v,'{')!==FALSE OR is_numeric($k))? $v:'\''.$v.'\'';
+                if($k=='colors'){
+                    $ret.="[";
+                    $i=1;
+                    $size=count($v);
+                    foreach($v as $color ){
+                        $ret.="'".$color."'";
+                        $i++;
+                        if($i<=$size){
+                            $ret.=",";
+                        }
+                    }
+                    $ret.="]";
+                }else{
+                    if($k=='is3D'){
+                        $ret.=$v;
+                    }else{
+                        $ret.= (strpos($v,'{')!==FALSE OR is_numeric($k))? $v:'\''.$v.'\'';
+                    }
+                    //$ret.= (strpos($v,'{')!==FALSE OR is_numeric($k))? $v:'\''.$v.'\'';
+                }
+                
+                
+                
        		$ret.= ',';
        	}       		
 		$ret.='};'.PHP_EOL;
@@ -205,5 +232,18 @@ class Chart{
 						'minorTicks'=>5);
 		return self::corechart('Gauge',$data,$options);
 	}
+        
+        public static function setRoles($rolesArray){
+            self::$roles=$rolesArray;
+        }
+
+        private static function addRoles(){
+            $$stringtoadd="";
+                foreach (self::$roles as $k=>$v){
+                   $stringtoadd.= "data.addColumn({".$v."});".PHP_EOL;
+                }
+            //echo $stringtoadd;
+            return $stringtoadd;
+        }
 	
 }

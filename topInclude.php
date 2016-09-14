@@ -65,6 +65,7 @@ include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/Conciliacio
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/RelConcilFacturaObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/ReportTransSumObj.php");
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/OCCustomerObj.php");
+include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/com/entities/ReportAnaliIngCost.php");
 
 // External
 include ($_SERVER['DOCUMENT_ROOT'].$direccion."/include/external/simplecapcha/simple-php-captcha.php");

@@ -50,6 +50,7 @@ $indexpage=$config->domain."/".$config->pathServer.""
            <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/PaymentReport/ReportePagosParciales.php'><span>Reporte de Pagos Parciales</span></a></li>
            <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/PaymentReport/FacturasPorCliente.php'><span>Reporte de Facturas Por Cliente</span></a></li>
            <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/ConciliacionCuentas/Reports/ReportByTransaccion.php'><span>Reporte de Conciliaciones Transacciones</span></a></li>
+           <li class='has-sub'><a href='<?php echo $indexpage;?>/modules/PaymentReport/AnalisisDeCosto.php'><span>Reporte de Analisis de Gastos y Ingresos</span></a></li>
        </ul>
    </li>
    <li class='last'><a href='<?php echo $logoutpage;?>'><span>Salir</span></a></li>

@@ -71,3 +71,16 @@ button{
 @media print {
 	.page-break	{ display: block; page-break-before: always; }
 }
+
+.checkboxes label {
+  display: block;
+  float: left;
+  padding-right: 10px;
+  white-space: nowrap;
+}
+.checkboxes input {
+  vertical-align: middle;
+}
+.checkboxes label span {
+  vertical-align: middle;
+}

@@ -174,18 +174,18 @@ $_ADOConciliacion->GetDataAnalisisGastosIngresos($ListofData,$ano);
     } 
    
 ?>
-
+<div style="margin: 0;padding: 0;">
 <?php
     $colors=array('blue','#e6693e','#ec8f6e','#f3b49f','#f6c7b6');
     
-    $options=array('title'=>'Analisis de Gastos y Informacion','height'=>400,'width'=>900,'colors'=>$colors,"hAxis"=> "{textStyle:{fontSize:12}}");
+    $options=array('title'=>'Analisis de Gastos y Informacion','height'=>600,'width'=>1000,'colors'=>$colors,"hAxis"=> "{textStyle:{fontSize:12}}","bar"=>"{groupWidth:'80%'}");
     $chart= new Chart();
     $chart->setRoles($roles);
     if(isset($dataval)){
         echo $chart->column($dataval,$options );
     }
 ?>
-
+</div>
 <?php include '../../view/footerinclude.php';?>
 <?php
 
